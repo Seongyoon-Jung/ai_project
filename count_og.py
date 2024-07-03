@@ -20,12 +20,12 @@ def main(weights="yolov8n.pt", source=0, save_output=False):
 
     # Initialize the video writer to save the output video
     video_writer = None
-    # if save_output:
-    #     video_writer = cv2.VideoWriter("webcam_object_counting_output.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+    if save_output:
+        video_writer = cv2.VideoWriter("webcam_object_counting_output.avi", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
     # Initialize the Object Counter with visualization options and other parameters
     counter = solutions.ObjectCounter(
-        view_img=False,  # Disable display during processing
+        view_img=True,  # Display the image during processing
         reg_pts=line_points,  # Region of interest points
         classes_names=model.names,  # Class names from the YOLO model
         draw_tracks=True,  # Draw tracking lines for objects
@@ -45,24 +45,24 @@ def main(weights="yolov8n.pt", source=0, save_output=False):
         # Use the Object Counter to count objects in the frame and get the annotated image
         im0 = counter.start_counting(im0, tracks)
 
-        # Save the annotated frame to the output video if needed
+        # Write the annotated frame to the output video
         if save_output:
             video_writer.write(im0)
 
-        # Optionally display the resulting frame (disabled in headless mode)
-        # cv2.imshow("Webcam Object Counting", im0)
+        # Display the resulting frame
+        cv2.imshow("Webcam Object Counting", im0)
 
-        # Break the loop if 'q' is pressed (disabled in headless mode)
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
-        #     break
+        # Break the loop if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
     # Release the video capture and writer objects
     cap.release()
     if save_output:
         video_writer.release()
 
-    # Close all OpenCV windows (disabled in headless mode)
-    # cv2.destroyAllWindows()
+    # Close all OpenCV windows
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     import argparse
@@ -74,3 +74,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(weights=args.weights, source=args.source, save_output=args.save_output)
+
