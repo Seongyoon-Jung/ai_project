@@ -1,19 +1,15 @@
 import cv2
 from ultralytics import YOLO, solutions
-import asyncio
-from bleak import BleakClient
+import socket
 
-async def send_message_to_server(message, address):
-    client = BleakClient(address)
+def send_message_to_server(message, host='192.168.0.52', port=65432):
     try:
-        await client.connect()
-        print(f"Connected to server at {address}")
-        await client.write_gatt_char(message)
-        print(f"Sent message: {message} to server at {address}")
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            s.sendall(message.encode())
+            print(f"Sent message: {message} to server at {host}:{port}")
     except Exception as e:
         print(f"Failed to send message to server: {e}")
-    finally:
-        await client.disconnect()
 
 class CustomObjectCounter(solutions.ObjectCounter):
     def __init__(self, *args, **kwargs):
@@ -31,14 +27,16 @@ class CustomObjectCounter(solutions.ObjectCounter):
                         self.person_count += 1
 
         if self.person_count > self.previous_person_count:
-            asyncio.run(send_message_to_server(b'person_passed', 'XX:XX:XX:XX:XX:XX'))  # Replace 'XX:XX:XX:XX:XX:XX' with the server's Bluetooth address
+            send_message_to_server('person_passed')
             self.previous_person_count = self.person_count
 
         return frame
 
     def _is_passing_line(self, track):
+        # Implement the logic to check if the object has passed the line
+        # Placeholder logic: assuming the track has a `center` attribute
         center_x = track.get('center', (0, 0))[0]
-        line_x = (frame.shape[1] // 2)
+        line_x = frame.shape[1] // 2
         return center_x > line_x
 
 def main(weights="yolov8n.pt", source=0, save_output=False):
