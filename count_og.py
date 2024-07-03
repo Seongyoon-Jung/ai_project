@@ -16,7 +16,7 @@ def main(weights="yolov8n.pt", source=0, save_output=False):
     line_points = [(w // 2, 0), (w // 2, h)]  # Vertical line coordinates in the middle
 
     # Specify classes to count, for example: person (0) and car (2)
-    classes_to_count = [0, 2]  # Class IDs for person and car
+    classes_to_count = [0]  # Class IDs for person and car
 
     # Initialize the video writer to save the output video
     video_writer = None
