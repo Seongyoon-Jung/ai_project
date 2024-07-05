@@ -15,7 +15,7 @@ def send_number_to_arduino(number):
 
 def main():
     consumer = KafkaConsumer('output_topic',
-                             bootstrap_servers='localhost:9092',
+                             bootstrap_servers='141.223.108.158:9092',
                              value_deserializer=lambda m: json.loads(m.decode('utf-8')),
                              group_id='laser_consumer_group')
 
