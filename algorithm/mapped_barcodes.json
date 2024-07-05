@@ -1,0 +1,29 @@
+{
+    "1": {
+        "spec_id": 1,
+        "width": 18.0,
+        "length": 16.0,
+        "height": 7.0,
+        "volume": 2016.0,
+        "weight": 8.21,
+        "location": "po2"
+    },
+    "2": {
+        "spec_id": 1,
+        "width": 18.0,
+        "length": 16.0,
+        "height": 7.0,
+        "volume": 2016.0,
+        "weight": 2.49,
+        "location": "po2"
+    },
+    "3": {
+        "spec_id": 2,
+        "width": 26.0,
+        "length": 18.0,
+        "height": 15.100000000000001,
+        "volume": 7066.8,
+        "weight": 3.35,
+        "location": "po1"
+    }
+}
