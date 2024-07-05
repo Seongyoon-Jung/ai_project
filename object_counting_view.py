@@ -50,7 +50,7 @@ def main(weights="yolov8n.pt", source=0, save_output=False, server_ip="192.168.0
 
         # Use the Object Counter to count objects in the frame and get the annotated image
         im0, counts = counter.start_counting(im0, tracks)
-
+        print(counts)
         # Check if the count has increased
         if counts["total"] > previous_count:
             client_socket.sendall(b"passed")
