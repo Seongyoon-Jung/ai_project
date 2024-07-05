@@ -1,3 +1,4 @@
+import socket
 import json
 from kafka import KafkaProducer
 from get_data import receive_data_from_client, map_barcodes_to_info, load_json_file, save_json_file
