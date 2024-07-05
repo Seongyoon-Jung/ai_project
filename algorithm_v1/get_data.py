@@ -19,7 +19,7 @@ def save_json_file(filename, data):
         json.dump(data, file, indent=4)
 
 def receive_data_from_client():
-    json_filename = 'data/mapped_barcodes.json' 
+    json_filename = 'data/mapped_boxes.json' 
     output_filename = 'data/generated_boxes.json'
 
     # Load the existing JSON file

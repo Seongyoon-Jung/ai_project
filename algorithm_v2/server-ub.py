@@ -1,5 +1,5 @@
 import json
-from get_data import receive_data_from_client
+from getData import receive_data_from_client
 
 def main():
     # Receive data from the client
