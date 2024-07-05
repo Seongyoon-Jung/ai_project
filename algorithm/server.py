@@ -10,7 +10,13 @@ def main():
     with open(output_filename, 'r') as file:
         mapped_data = json.load(file)
         print("Mapped Barcodes Information:")
-        print(json.dumps(mapped_data, indent=4))
+
+        # Extract all IDs from the JSON data
+        ids = list(mapped_data.keys())
+
+        # Print the list of IDs
+        print("List of IDs in mapped_barcodes.json:")
+        print(ids)
 
 if __name__ == "__main__":
     main()
