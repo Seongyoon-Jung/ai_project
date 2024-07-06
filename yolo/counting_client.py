@@ -7,7 +7,7 @@ import socket
 model = YOLO("yolov8n.pt")
 
 # Open the webcam (usually 0 is the default webcam)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 if not cap.isOpened():
     print("Error opening webcam")
     exit()
