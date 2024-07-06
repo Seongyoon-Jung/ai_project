@@ -1,3 +1,4 @@
+#server.py
 import socket
 
 # 서버의 IP 주소와 포트 번호

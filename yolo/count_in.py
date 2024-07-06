@@ -1,7 +1,6 @@
 import cv2
 from ultralytics import YOLO, solutions
 import time
-import socket
 
 # Load the pre-trained YOLOv8 model
 model = YOLO("yolov8n.pt")
@@ -40,14 +39,6 @@ with open(log_file, "w") as f:
 # Previous IN and OUT counts to detect changes
 previous_counts = {model.names[class_id]: {"IN": 0, "OUT": 0} for class_id in classes_to_count}
 
-# 서버의 IP 주소와 포트 번호
-SERVER_HOST = '127.0.0.1'  # 서버의 IP 주소
-SERVER_PORT = 65432        # 서버의 포트 번호
-
-# 서버에 연결
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((SERVER_HOST, SERVER_PORT))
-
 # Process video frames in a loop
 frame_count = 0
 while cap.isOpened():
@@ -71,11 +62,6 @@ while cap.isOpened():
             with open(log_file, "a") as f:
                 timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"{timestamp}, {class_name}, {current_in_count}, {current_out_count}\n")
-                
-            # Check for IN count changes to send message to server
-            if current_in_count > previous_counts[class_name]["IN"]:
-                sock.sendall(b"passed")
-            
             previous_counts[class_name]["IN"] = current_in_count
             previous_counts[class_name]["OUT"] = current_out_count
 
@@ -96,6 +82,3 @@ cap.release()
 
 # Close all OpenCV windows
 cv2.destroyAllWindows()
-
-# Close the socket
-sock.close()
