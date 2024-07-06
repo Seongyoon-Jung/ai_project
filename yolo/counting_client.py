@@ -41,7 +41,7 @@ with open(log_file, "w") as f:
 previous_counts = {model.names[class_id]: {"IN": 0, "OUT": 0} for class_id in classes_to_count}
 
 # 서버의 IP 주소와 포트 번호
-SERVER_HOST = '127.0.0.1'  # 서버의 IP 주소
+SERVER_HOST = '192.168.0.42'  # 서버의 IP 주소
 SERVER_PORT = 65432        # 서버의 포트 번호
 
 # 서버에 연결
