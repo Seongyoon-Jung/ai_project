@@ -4,7 +4,7 @@ import time
 import socket
 
 # Load the pre-trained YOLOv8 model
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8n-obb.pt")
 
 # Open the webcam (usually 0 is the default webcam)
 cap = cv2.VideoCapture(0)
@@ -42,7 +42,7 @@ with open(log_file, "w") as f:
 previous_counts = {model.names[class_id]: {"IN": 0, "OUT": 0} for class_id in classes_to_count}
 
 # 서버의 IP 주소와 포트 번호
-SERVER_HOST = '192.168.10.8'  # 서버의 IP 주소 (실습실: '192.168.0.42') (시연장: 192.168.10.8)
+SERVER_HOST = '192.168.0.25'  # 서버의 IP 주소 (실습실: '192.168.0.42') (시연장: 192.168.0.25) (핫스팟: 172.20.10.13)
 SERVER_PORT = 65433  # 서버의 포트 번호
 
 # 서버에 연결

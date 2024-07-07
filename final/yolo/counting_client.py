@@ -4,7 +4,7 @@ import time
 import socket
 
 # Load the pre-trained YOLOv8 model
-model = YOLO("yolov8n.pt")
+model = YOLO("best.pt")
 
 # Open the webcam (usually 0 is the default webcam)
 cap = cv2.VideoCapture(0)
@@ -19,7 +19,7 @@ w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FR
 line_points = [(w // 2, 0), (w // 2, h)]  # Vertical line coordinates in the middle
 
 # Specify classes to count, for example: person (0) and car (2)
-classes_to_count = [0, 2]  # Class IDs for person and car
+classes_to_count = [0]  # Class IDs for box
 
 # Initialize the Object Counter with visualization options and other parameters
 counter = solutions.ObjectCounter(
@@ -41,7 +41,7 @@ with open(log_file, "w") as f:
 previous_counts = {model.names[class_id]: {"IN": 0, "OUT": 0} for class_id in classes_to_count}
 
 # 서버의 IP 주소와 포트 번호
-SERVER_HOST = '192.168.10.4' # 서버의 IP 주소 (실습실: '192.168.0.42')
+SERVER_HOST = '192.168.0.25' # 서버의 IP 주소 (실습실: '192.168.0.42', 시연장:192.168.0.25)
 SERVER_PORT = 65433        # 서버의 포트 번호
 
 # 서버에 연결
