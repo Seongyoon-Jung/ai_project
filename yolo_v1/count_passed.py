@@ -4,10 +4,10 @@ import time
 import socket
 
 # Load the pre-trained YOLOv8 model
-model = YOLO("yolov8n.pt")
+model = YOLO("last.pt")
 
 # Open the webcam (usually 0 is the default webcam)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 if not cap.isOpened():
     print("Error opening webcam")
     exit()
@@ -19,7 +19,7 @@ w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FR
 line_points = [(w // 2, 0), (w // 2, h)]  # Vertical line coordinates in the middle
 
 # Specify classes to count, for example: person (0) and car (2)
-classes_to_count = [0, 2]  # Class IDs for person and car
+classes_to_count = [0, 1, 2]  # Class IDs for person and car
 
 # Initialize the Object Counter with visualization options and other parameters
 counter = solutions.ObjectCounter(
